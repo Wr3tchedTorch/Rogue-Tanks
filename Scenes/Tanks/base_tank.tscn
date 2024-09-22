@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://bmgt4cjtlkvte"]
+
+[ext_resource type="Script" path="res://Scenes/Tanks/Tank.cs" id="1_gejch"]
+[ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_0tny1"]
+[ext_resource type="PackedScene" uid="uid://64njfd4dhi12" path="res://Scenes/Bullets/bullet.tscn" id="2_ch87e"]
+[ext_resource type="Texture2D" uid="uid://fax1g1bhcquj" path="res://Assets/s5dc6c8ipqix.png" id="3_t8552"]
+[ext_resource type="Script" path="res://Scripts/HealthComponent.cs" id="4_h58d1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5l1l"]
+shader = ExtResource("2_0tny1")
+shader_parameter/outline_color = Vector4(5, 5, 5, 5)
+shader_parameter/outline_thickness = 6.25
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c52gu"]
+radius = 93.0484
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v5wi4"]
+radius = 80.0562
+
+[node name="Base Tank" type="CharacterBody2D"]
+position = Vector2(-2, 0)
+collision_mask = 0
+platform_floor_layers = 0
+script = ExtResource("1_gejch")
+FireRate = 100.0
+BulletScene = ExtResource("2_ch87e")
+Speed = 1000
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_l5l1l")
+position = Vector2(28, -1)
+texture = ExtResource("3_t8552")
+region_enabled = true
+region_rect = Rect2(21, 4539, 225, 175)
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("4_h58d1")
+
+[node name="HurtBox" type="Area2D" parent="HealthComponent"]
+position = Vector2(1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthComponent/HurtBox"]
+shape = SubResource("CircleShape2D_c52gu")
+debug_color = Color(0.858824, 0.352941, 0.368627, 0.0862745)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_v5wi4")
+debug_color = Color(0.227359, 0.583106, 0.713099, 0.12549)
+
+[node name="Gun" type="Node2D" parent="."]
+
+[node name="ShotingSpawners" type="Node2D" parent="Gun"]
+
+[node name="SpawnerGroup" type="Node2D" parent="Gun/ShotingSpawners"]
+position = Vector2(1, 0)
+
+[node name="Marker2D" type="Marker2D" parent="Gun/ShotingSpawners/SpawnerGroup"]
+position = Vector2(134, 0)
+
+[node name="Marker2D2" type="Marker2D" parent="Gun/ShotingSpawners/SpawnerGroup"]
+position = Vector2(142, -20)
+
+[node name="Marker2D3" type="Marker2D" parent="Gun/ShotingSpawners/SpawnerGroup"]
+position = Vector2(142, 20)
+
+[node name="ShotDelay" type="Timer" parent="Gun"]

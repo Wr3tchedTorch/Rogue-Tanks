@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3t68k57444bw"]
+
+[ext_resource type="PackedScene" uid="uid://bmgt4cjtlkvte" path="res://Scenes/Tanks/base_tank.tscn" id="1_au6jx"]
+[ext_resource type="Texture2D" uid="uid://bo7pgpgnpvonl" path="res://icon.svg" id="2_dqkjn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8kgsn"]
+bg_color = Color(0.0112714, 0.0620702, 0.0238382, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pvgji"]
+bg_color = Color(0.350844, 0.721917, 0.5163, 1)
+anti_aliasing = false
+
+[node name="Sandbox" type="Node2D"]
+
+[node name="Base Tank" parent="." instance=ExtResource("1_au6jx")]
+
+[node name="Camera2D" type="Camera2D" parent="Base Tank"]
+zoom = Vector2(0.3, 0.3)
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="CanvasLayer" groups=["PlayerHealthBar"]]
+unique_name_in_owner = true
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_8kgsn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pvgji")
+value = 50.0
+show_percentage = false
+
+[node name="Bullets" type="Node2D" parent="." groups=["Bullets"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-907, -499)
+texture = ExtResource("2_dqkjn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(1200, 574)
+texture = ExtResource("2_dqkjn")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(1482, -197)
+texture = ExtResource("2_dqkjn")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(1205, -635)
+texture = ExtResource("2_dqkjn")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+position = Vector2(1069, -15)
+texture = ExtResource("2_dqkjn")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+position = Vector2(-539, 776)
+texture = ExtResource("2_dqkjn")
+
+[node name="Sprite2D7" type="Sprite2D" parent="."]
+position = Vector2(-579, 1088)
+texture = ExtResource("2_dqkjn")
+
+[node name="Sprite2D8" type="Sprite2D" parent="."]
+position = Vector2(-418, 1033)
+texture = ExtResource("2_dqkjn")
