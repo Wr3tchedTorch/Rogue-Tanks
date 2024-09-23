@@ -29,7 +29,10 @@ public partial class HealthComponent : Node2D
 	public override void _Process(double delta)
 	{
 
-		(GetTree().GetFirstNodeInGroup("PlayerHealthBar") as ProgressBar).Value = Health;
+		ProgressBar bar = GetNodeOrNull<ProgressBar>("HealthBar");
+		if (bar == null)
+			return;
+		bar.Value = Health;
 	}
 
 	public void GetDamage(float damage)
@@ -43,10 +46,11 @@ public partial class HealthComponent : Node2D
 	public void Heal(int value)
 		=> Health = Mathf.Min(100, Health + value);
 
-	public void OnHurtBoxBodyEntered(Node2D body) {
+	public void OnHurtBoxBodyEntered(Node2D body)
+	{
 		if (body is Bullet bullet)
 			GetDamage(bullet.Damage);
 		// else if (body is Enemy enemy)
-			// GetDamage(enemy.Damage);
+		// GetDamage(enemy.Damage);
 	}
 }

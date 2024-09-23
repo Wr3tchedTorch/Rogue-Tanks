@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bmgt4cjtlkvte"]
+[gd_scene load_steps=11 format=3 uid="uid://bmgt4cjtlkvte"]
 
 [ext_resource type="Script" path="res://Scenes/Tanks/Tank.cs" id="1_gejch"]
 [ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_0tny1"]
@@ -13,6 +13,22 @@ shader_parameter/outline_thickness = 6.25
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c52gu"]
 radius = 93.0484
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yidcn"]
+bg_color = Color(0.0112714, 0.0620702, 0.0238382, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mncnt"]
+bg_color = Color(0.298279, 0.713746, 0.386365, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+anti_aliasing = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v5wi4"]
 radius = 80.0562
@@ -41,11 +57,30 @@ script = ExtResource("4_h58d1")
 position = Vector2(1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HealthComponent/HurtBox"]
+position = Vector2(16, 0)
 shape = SubResource("CircleShape2D_c52gu")
 debug_color = Color(0.858824, 0.352941, 0.368627, 0.0862745)
 
+[node name="HealthBar" type="ProgressBar" parent="HealthComponent"]
+unique_name_in_owner = true
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -148.0
+offset_top = -204.0
+offset_right = 152.0
+offset_bottom = -152.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_yidcn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mncnt")
+value = 60.0
+show_percentage = false
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(16, -2)
 shape = SubResource("CircleShape2D_v5wi4")
 debug_color = Color(0.227359, 0.583106, 0.713099, 0.12549)
 
@@ -66,3 +101,4 @@ position = Vector2(142, -20)
 position = Vector2(142, 20)
 
 [node name="ShotDelay" type="Timer" parent="Gun"]
+one_shot = true

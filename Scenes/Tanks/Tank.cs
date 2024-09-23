@@ -8,7 +8,7 @@ public partial class Tank : CharacterBody2D
 	[ExportGroup("Gameplay Attributes")]
 	[Export] public float Damage { get; set; }
 	[Export] public float BulletSpeed { get; set; } = 1200;
-	[Export] public float FireRate { get; set; } = 1000;
+	[Export] public float FireRate { get; set; } = 100;
 	[Export] public PackedScene BulletScene;
 
 	[ExportGroup("Physics Attributes")]
@@ -52,7 +52,7 @@ public partial class Tank : CharacterBody2D
 	private void HandleMovement(double delta)
 	{
 
-		LookAt(_targetPos);
+		GetNode<Sprite2D>("Sprite2D").LookAt(_targetPos);
 
 		Vector2 dir = Input.GetVector("left", "right", "up", "down").Normalized();
 		Velocity = Velocity.Lerp(dir * Speed, (float)delta * Accel / Mass);
@@ -63,7 +63,7 @@ public partial class Tank : CharacterBody2D
 	{
 
 		_canShot = false;
-		_shotDelayTimer.WaitTime = 100 / FireRate;
+		_shotDelayTimer.WaitTime = 10 / FireRate;
 		_shotDelayTimer.Start();
 
 		GetNode<Node2D>("Gun/ShotingSpawners").LookAt(_targetPos);
@@ -79,7 +79,7 @@ public partial class Tank : CharacterBody2D
 			Bullet bullet = BulletScene.Instantiate<Bullet>();
 			GetTree().GetFirstNodeInGroup("Bullets").AddChild(bullet);
 			bullet.GlobalPosition = spawner.GlobalPosition;
-			bullet.InitializeAttributes(Damage, BulletSpeed, Vector2.Right.Rotated(Rotation));
+			bullet.InitializeAttributes(Damage, BulletSpeed, Vector2.Right.Rotated(GetNode<Sprite2D>("Sprite2D").Rotation));
 		}
 
 	}
