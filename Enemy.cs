@@ -7,8 +7,10 @@ public partial class Enemy : CharacterBody2D
     [ExportGroup("Enemy Stats")]
     [Export] public float Health;
     [Export] public float Damage = 0.5f;
-    [Export] public float Speed = 800;
-    [Export] public float BulletSpeedBoost = 2;
+    [Export] public float Speed = 130;
+    [Export] public float MaxSpeed = 1200;
+    [Export] public float BulletSpeedBoost = 3;
+    [Export] public float Mass = 1.5f;
 
     [ExportGroup("Bullet Stats")]
     [Export] public PackedScene BulletScene;
@@ -17,23 +19,23 @@ public partial class Enemy : CharacterBody2D
 
     public CharacterBody2D Target;
 
+    protected bool _freeze = false;
+
     public override void _Ready()
     {
 
-        base._Ready();
+        Target = GetTree().GetFirstNodeInGroup("Player") as CharacterBody2D;
     }
 
-    public override void _PhysicsProcess(double delta)
-    {
+    public void SetPause(bool pause) => _freeze = pause;
 
-        FollowPlayer();
+    protected virtual void FollowTarget()
+    {        
     }
 
-    private void FollowPlayer()
+    protected Vector2 GetFollowForce()
     {
-
-        // Shoot backwards to gain impulse and pursue player.
-        // Damages player by headbutting him.
-        
+        Vector2 desiredVelocity = (Target.GlobalPosition - GlobalPosition).Normalized() * Speed;
+        return desiredVelocity - Velocity;
     }
 }

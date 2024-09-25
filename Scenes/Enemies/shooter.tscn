@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ll2dnp17l01u"]
+[gd_scene load_steps=6 format=3 uid="uid://ll2dnp17l01u"]
 
 [ext_resource type="PackedScene" uid="uid://du2ubb1853sug" path="res://Scenes/Enemies/enemy.tscn" id="1_b8q1r"]
 [ext_resource type="Texture2D" uid="uid://fax1g1bhcquj" path="res://Assets/s5dc6c8ipqix.png" id="2_4jvx5"]
+[ext_resource type="Script" path="res://Scenes/Enemies/Shooter.cs" id="2_15m2e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wfa0j"]
 radius = 71.2531
@@ -10,6 +11,10 @@ radius = 71.2531
 radius = 83.006
 
 [node name="Shooter" instance=ExtResource("1_b8q1r")]
+platform_floor_layers = 0
+script = ExtResource("2_15m2e")
+Speed = 100.0
+FireRate = 5.0
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_4jvx5")
@@ -38,3 +43,10 @@ debug_color = Color(0.0431373, 0.572549, 0.823529, 0.211765)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HealthComponent/HurtBox" index="0"]
 shape = SubResource("CircleShape2D_juy8o")
 debug_color = Color(0.823529, 0.376471, 0.356863, 0.164706)
+
+[node name="ShootingDelay" type="Timer" parent="." index="4"]
+one_shot = true
+
+[node name="DashDelay" type="Timer" parent="." index="5"]
+wait_time = 0.25
+one_shot = true
