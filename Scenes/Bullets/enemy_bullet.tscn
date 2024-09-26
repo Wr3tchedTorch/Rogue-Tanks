@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://46vmo5vw4vtr"]
+
+[ext_resource type="PackedScene" uid="uid://64njfd4dhi12" path="res://Scenes/Bullets/bullet.tscn" id="1_4mual"]
+
+[node name="Bullet" instance=ExtResource("1_4mual")]
+collision_layer = 8
+
+[node name="Sprite2D" parent="." index="0"]
+region_rect = Rect2(3519, 8552, 68, 70)

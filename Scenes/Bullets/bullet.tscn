@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://64njfd4dhi12"]
+[gd_scene load_steps=6 format=3 uid="uid://64njfd4dhi12"]
 
 [ext_resource type="Script" path="res://Scenes/Bullets/Bullet.cs" id="1_o4gra"]
 [ext_resource type="Texture2D" uid="uid://fax1g1bhcquj" path="res://Assets/s5dc6c8ipqix.png" id="2_2xl3q"]
+[ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_w4xo0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dqtb8"]
+shader = ExtResource("2_w4xo0")
+shader_parameter/outline_color = Vector4(1, 1, 1, 1)
+shader_parameter/outline_thickness = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi8p8"]
-radius = 27.0185
+radius = 27.2947
 
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 4
@@ -13,12 +19,14 @@ platform_floor_layers = 0
 script = ExtResource("1_o4gra")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_dqtb8")
 texture = ExtResource("2_2xl3q")
 region_enabled = true
 region_rect = Rect2(3525, 6327, 54, 55)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hi8p8")
+debug_color = Color(0, 0.6, 0.701961, 0.0588235)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(2.38419e-07, 0)

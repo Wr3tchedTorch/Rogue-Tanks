@@ -21,6 +21,8 @@ public partial class Shooter : Enemy
         _dashDelayTimer = GetNode<Timer>("DashDelay");
         _dashDelayTimer.Timeout += OnDashTimerTimeout;
 
+        GetNode<Area2D>("HurtBox").BodyEntered += OnHurtBoxBodyEntered;
+
         float fireDelay = 10 / FireRate;
         _shootTimer.WaitTime = fireDelay;
     }
@@ -105,4 +107,21 @@ public partial class Shooter : Enemy
 
     public void OnDashTimerTimeout()
         => _isDashing = false;
+
+    public void OnHurtBoxBodyEntered(Node2D area)
+    {
+
+        if (area is Bullet bullet)
+        {
+            GetNode<HealthComponent>("HealthComponent").DealDamage(bullet.Damage);
+            bullet.QueueFree();
+        }
+    }
+
+    public void OnHealthComponentDeath()
+    {
+
+        // Death Animation
+        QueueFree();
+    }
 }

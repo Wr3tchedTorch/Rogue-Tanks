@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3t68k57444bw"]
+[gd_scene load_steps=10 format=3 uid="uid://c3t68k57444bw"]
 
 [ext_resource type="PackedScene" uid="uid://bmgt4cjtlkvte" path="res://Scenes/Tanks/base_tank.tscn" id="1_au6jx"]
+[ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_kpelb"]
 [ext_resource type="Texture2D" uid="uid://bo7pgpgnpvonl" path="res://icon.svg" id="2_dqkjn"]
 [ext_resource type="Script" path="res://Scripts/MobSpawner.cs" id="2_jqmv7"]
 [ext_resource type="PackedScene" uid="uid://ll2dnp17l01u" path="res://Scenes/Enemies/shooter.tscn" id="3_qnb2n"]
-[ext_resource type="PackedScene" uid="uid://64njfd4dhi12" path="res://Scenes/Bullets/bullet.tscn" id="4_8var3"]
+[ext_resource type="PackedScene" uid="uid://doh6osdbc07k8" path="res://Scenes/Damage Indicator/damage_indicator.tscn" id="5_s3yms"]
 
 [sub_resource type="Curve2D" id="Curve2D_ne8bk"]
 _data = {
@@ -22,7 +23,11 @@ anti_aliasing = false
 
 [node name="Sandbox" type="Node2D"]
 
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_kpelb")
+
 [node name="Base Tank" parent="." groups=["Player"] instance=ExtResource("1_au6jx")]
+position = Vector2(-404, 277)
 
 [node name="Camera2D" type="Camera2D" parent="Base Tank"]
 zoom = Vector2(0.3, 0.3)
@@ -56,8 +61,7 @@ show_percentage = false
 [node name="Enemies" type="Node2D" parent="." groups=["Enemies"]]
 
 [node name="Shooter" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(613, -346)
-BulletScene = ExtResource("4_8var3")
+position = Vector2(1068, 1049)
 
 [node name="Bullets" type="Node2D" parent="." groups=["Bullets"]]
 
@@ -92,3 +96,6 @@ texture = ExtResource("2_dqkjn")
 [node name="Sprite2D8" type="Sprite2D" parent="."]
 position = Vector2(-418, 1033)
 texture = ExtResource("2_dqkjn")
+
+[node name="DamageIndicator" parent="." instance=ExtResource("5_s3yms")]
+position = Vector2(357, 64)

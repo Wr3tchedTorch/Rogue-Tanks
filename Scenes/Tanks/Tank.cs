@@ -6,7 +6,7 @@ public partial class Tank : CharacterBody2D
 {
 
 	[ExportGroup("Gameplay Attributes")]
-	[Export] public float Damage { get; set; }
+	[Export] public float Damage { get; set; } = 10;
 	[Export] public float BulletSpeed { get; set; } = 1200;
 	[Export] public float FireRate { get; set; } = 100;
 	[Export] public PackedScene BulletScene;
@@ -17,16 +17,32 @@ public partial class Tank : CharacterBody2D
 
 	private Sprite2D _spr;
 	private Timer _shotDelayTimer;
+
 	private float Accel = 5.0f;
-	private bool _canShot = true;
 	private Vector2 _targetPos;
+	
+	private bool _canShot = true;
+	private bool _isHurtBoxColliding = false;
+	private Node2D _hurtBoxCollidingBody;
+
 
 	public override void _Ready()
 	{
 
 		_spr = GetNode<Sprite2D>("Sprite2D");
+
 		_shotDelayTimer = GetNode<Timer>("Gun/ShotDelay");
 		_shotDelayTimer.Timeout += OnShootDelayTimeout;
+
+		GetNode<Area2D>("HurtBox").BodyEntered += OnHurtBoxBodyEntered;
+		GetNode<Area2D>("HurtBox").BodyExited += OnHurtBoxBodyExited;
+	}
+
+	public override void _Process(double delta)
+	{
+
+		if (_isHurtBoxColliding)
+			TakeDamage();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -43,11 +59,21 @@ public partial class Tank : CharacterBody2D
 	public void OnHealthComponentDeath()
 	{
 
+		// Death Animation
 		QueueFree();
 	}
 
 	public void OnShootDelayTimeout()
 		=> _canShot = true;
+
+	public void OnHurtBoxBodyExited(Node2D body)
+		=> _isHurtBoxColliding = false;
+
+	public void OnHurtBoxBodyEntered(Node2D body)
+	{
+		_isHurtBoxColliding = true;
+		_hurtBoxCollidingBody = body;
+	}
 
 	private void HandleMovement(double delta)
 	{
@@ -81,6 +107,19 @@ public partial class Tank : CharacterBody2D
 			bullet.GlobalPosition = spawner.GlobalPosition;
 			bullet.InitializeAttributes(Damage, BulletSpeed, Vector2.Right.Rotated(GetNode<Sprite2D>("Sprite2D").Rotation));
 		}
+	}
 
+	private void TakeDamage()
+	{
+
+		HealthComponent healthComponent = GetNode<HealthComponent>("HealthComponent");
+
+		if (_hurtBoxCollidingBody is Bullet bullet)
+		{
+			bullet.QueueFree();
+			healthComponent.DealDamage(bullet.Damage);
+		}
+		if (_hurtBoxCollidingBody is Enemy enemy)
+			healthComponent.DealDamage(enemy.Damage);
 	}
 }

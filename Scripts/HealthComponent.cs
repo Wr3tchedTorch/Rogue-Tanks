@@ -4,26 +4,28 @@ using System;
 public partial class HealthComponent : Node2D
 {
 
+	[ExportGroup("Stats")]
 	[Export]
-	public float Health
+	public float Armor
 	{
-		get => _health;
-		set => _health = value is >= 0 and <= 100 ? value : throw new ArgumentException("Health can't be lower than `0` or higher than a `100`");
+		get => _armor;
+		set => _armor = value is >= 0 and <= 100 ? value : throw new ArgumentException($"{nameof(Armor)} must be at least 0 and at most 100.");
 	}
+	[Export] public float InvencibilityDuration = .5f;
 
 	[Signal] public delegate void DeathEventHandler();
 
-	private float _health;
-	private Area2D _hurtBox;
+	public float Health = 100;
+
+	private float _armor = 50;
+	private Timer _invencibilityTimer;
 
 	public override void _Ready()
 	{
 
-		_hurtBox = GetNode<Area2D>("HurtBox");
-		_hurtBox.BodyEntered += OnHurtBoxBodyEntered;
-
-		Death += GetParent<Tank>().OnHealthComponentDeath;
-		Health = 100;
+		_invencibilityTimer = GetNodeOrNull<Timer>("InvencibilityTimer");
+		if (_invencibilityTimer != null)
+			_invencibilityTimer.WaitTime = InvencibilityDuration;
 	}
 
 	public override void _Process(double delta)
@@ -35,9 +37,19 @@ public partial class HealthComponent : Node2D
 		bar.Value = Health;
 	}
 
-	public void GetDamage(float damage)
+	public void DealDamage(float damage)
 	{
+		if (damage == 0)
+			return;
+
+		if (IsInvencibilityTimerPlaying())
+			return;					
+
+		damage /= GetArmorMultiplier();
 		Health = Mathf.Max(0, Health - damage);
+
+		GD.Print($"{nameof(damage)}: {damage}");
+		GD.Print($"{nameof(Health)}: {Health}");
 
 		if (Health == 0)
 			EmitSignal(SignalName.Death);
@@ -46,11 +58,23 @@ public partial class HealthComponent : Node2D
 	public void Heal(int value)
 		=> Health = Mathf.Min(100, Health + value);
 
-	public void OnHurtBoxBodyEntered(Node2D body)
+	private float GetArmorMultiplier()
 	{
-		if (body is Bullet bullet)
-			GetDamage(bullet.Damage);
-		// else if (body is Enemy enemy)
-		// GetDamage(enemy.Damage);
+
+		float percentage = Armor / 100;
+		return 2 * percentage;
+	}
+
+	private bool IsInvencibilityTimerPlaying()
+	{
+
+		if (_invencibilityTimer == null)
+			return false;
+
+		if (!_invencibilityTimer.IsStopped())
+			return true;
+				
+		_invencibilityTimer.Start();
+		return false;
 	}
 }

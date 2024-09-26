@@ -1,8 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://ll2dnp17l01u"]
+[gd_scene load_steps=10 format=3 uid="uid://ll2dnp17l01u"]
 
 [ext_resource type="PackedScene" uid="uid://du2ubb1853sug" path="res://Scenes/Enemies/enemy.tscn" id="1_b8q1r"]
 [ext_resource type="Texture2D" uid="uid://fax1g1bhcquj" path="res://Assets/s5dc6c8ipqix.png" id="2_4jvx5"]
 [ext_resource type="Script" path="res://Scenes/Enemies/Shooter.cs" id="2_15m2e"]
+[ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="3_awblh"]
+[ext_resource type="PackedScene" uid="uid://46vmo5vw4vtr" path="res://Scenes/Bullets/enemy_bullet.tscn" id="3_py8i2"]
+[ext_resource type="Script" path="res://Scripts/HealthComponent.cs" id="6_an860"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t5j2l"]
+shader = ExtResource("3_awblh")
+shader_parameter/outline_color = Vector4(1, 1, 1, 1)
+shader_parameter/outline_thickness = 6.417
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wfa0j"]
 radius = 71.2531
@@ -11,13 +19,18 @@ radius = 71.2531
 radius = 83.006
 
 [node name="Shooter" instance=ExtResource("1_b8q1r")]
+collision_layer = 2
 platform_floor_layers = 0
 script = ExtResource("2_15m2e")
+Damage = 10.0
 Speed = 100.0
-FireRate = 5.0
+BulletScene = ExtResource("3_py8i2")
+FireRate = 15.0
 
 [node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_t5j2l")
 texture = ExtResource("2_4jvx5")
+region_rect = Rect2(21, 6778, 227, 162)
 
 [node name="SpawnerGroup" type="Node2D" parent="Gun/ShotingSpawners" index="0"]
 position = Vector2(-31, 0)
@@ -37,12 +50,8 @@ shape = SubResource("CircleShape2D_wfa0j")
 debug_color = Color(0.0431373, 0.572549, 0.823529, 0.211765)
 
 [node name="HealthComponent" type="Node2D" parent="." index="3"]
-
-[node name="HurtBox" type="Area2D" parent="HealthComponent" index="0"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthComponent/HurtBox" index="0"]
-shape = SubResource("CircleShape2D_juy8o")
-debug_color = Color(0.823529, 0.376471, 0.356863, 0.164706)
+script = ExtResource("6_an860")
+Armor = 15.0
 
 [node name="ShootingDelay" type="Timer" parent="." index="4"]
 one_shot = true
@@ -50,3 +59,13 @@ one_shot = true
 [node name="DashDelay" type="Timer" parent="." index="5"]
 wait_time = 0.25
 one_shot = true
+
+[node name="HurtBox" type="Area2D" parent="." index="6"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CircleShape2D_juy8o")
+debug_color = Color(0.823529, 0.376471, 0.356863, 0.164706)
+
+[connection signal="Death" from="HealthComponent" to="." method="OnHealthComponentDeath"]

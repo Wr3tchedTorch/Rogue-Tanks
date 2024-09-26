@@ -11,9 +11,6 @@ shader = ExtResource("2_0tny1")
 shader_parameter/outline_color = Vector4(5, 5, 5, 5)
 shader_parameter/outline_thickness = 6.25
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_c52gu"]
-radius = 93.0484
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yidcn"]
 bg_color = Color(0.0112714, 0.0620702, 0.0238382, 1)
 border_width_left = 10
@@ -33,11 +30,15 @@ anti_aliasing = false
 [sub_resource type="CircleShape2D" id="CircleShape2D_v5wi4"]
 radius = 80.0562
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_c52gu"]
+radius = 93.0484
+
 [node name="Base Tank" type="CharacterBody2D"]
 position = Vector2(-2, 0)
 collision_mask = 0
 platform_floor_layers = 0
 script = ExtResource("1_gejch")
+FireRate = 15.0
 BulletScene = ExtResource("2_ch87e")
 Speed = 1000
 
@@ -52,16 +53,7 @@ region_rect = Rect2(21, 4539, 225, 175)
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("4_h58d1")
 
-[node name="HurtBox" type="Area2D" parent="HealthComponent"]
-position = Vector2(1, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthComponent/HurtBox"]
-position = Vector2(16, 0)
-shape = SubResource("CircleShape2D_c52gu")
-debug_color = Color(0.858824, 0.352941, 0.368627, 0.0862745)
-
 [node name="HealthBar" type="ProgressBar" parent="HealthComponent"]
-unique_name_in_owner = true
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -77,6 +69,9 @@ theme_override_styles/background = SubResource("StyleBoxFlat_yidcn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_mncnt")
 value = 60.0
 show_percentage = false
+
+[node name="InvencibilityTimer" type="Timer" parent="HealthComponent"]
+one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, -2)
@@ -101,3 +96,14 @@ position = Vector2(142, 20)
 
 [node name="ShotDelay" type="Timer" parent="Gun"]
 one_shot = true
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(1, 0)
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(16, 0)
+shape = SubResource("CircleShape2D_c52gu")
+debug_color = Color(0.858824, 0.352941, 0.368627, 0.0862745)
+
+[connection signal="Death" from="HealthComponent" to="." method="OnHealthComponentDeath"]
