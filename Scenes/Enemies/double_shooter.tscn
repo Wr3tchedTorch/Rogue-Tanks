@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://dl4opwai24a0h"]
+
+[ext_resource type="PackedScene" uid="uid://ll2dnp17l01u" path="res://Scenes/Enemies/shooter_base.tscn" id="1_x2hfj"]
+[ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_d5cuf"]
+[ext_resource type="AnimationLibrary" uid="uid://d3xlpw0k58flq" path="res://Animations/Tanks.res" id="2_i0rk2"]
+[ext_resource type="Texture2D" uid="uid://fax1g1bhcquj" path="res://Assets/s5dc6c8ipqix.png" id="3_i0fu1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t5j2l"]
+resource_local_to_scene = true
+shader = ExtResource("2_d5cuf")
+shader_parameter/outline_color = Vector4(5, 5, 5, 5)
+shader_parameter/outline_thickness = 6.25
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lssbx"]
+radius = 92.0
+height = 288.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k3vsd"]
+radius = 127.0
+
+[node name="Double Shooter" instance=ExtResource("1_x2hfj")]
+collision_mask = 3
+Armor = 30.0
+Speed = 20.0
+MaxSpeed = 1600.0
+BulletForce = 2200.0
+
+[node name="SpawnerGroup" parent="Gun/ShotingSpawners" index="0"]
+position = Vector2(33, -48)
+
+[node name="SpawnerGroup2" type="Node2D" parent="Gun/ShotingSpawners" index="1"]
+position = Vector2(35, 51)
+
+[node name="Marker2D" type="Marker2D" parent="Gun/ShotingSpawners/SpawnerGroup2" index="0"]
+position = Vector2(134, 0)
+
+[node name="Marker2D2" type="Marker2D" parent="Gun/ShotingSpawners/SpawnerGroup2" index="1"]
+position = Vector2(142, -20)
+
+[node name="Marker2D3" type="Marker2D" parent="Gun/ShotingSpawners/SpawnerGroup2" index="2"]
+position = Vector2(142, 20)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"Tanks": ExtResource("2_i0rk2")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
+material = SubResource("ShaderMaterial_t5j2l")
+position = Vector2(25.4022, 0)
+texture = ExtResource("3_i0fu1")
+offset = Vector2(-30, 0)
+region_enabled = true
+region_rect = Rect2(370, 7067, 345, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="6"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_lssbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CircleShape2D_k3vsd")
+debug_color = Color(0.933333, 0.231373, 0.294118, 0.262745)

@@ -4,21 +4,20 @@ using System;
 public partial class HealthComponent : Node2D
 {
 
-	[ExportGroup("Stats")]
-	[Export]
-	public float Armor
-	{
-		get => _armor;
-		set => _armor = value is >= 0 and <= 100 ? value : throw new ArgumentException($"{nameof(Armor)} must be at least 0 and at most 100.");
-	}
 	[Export] public float InvencibilityDuration = .5f;
 
 	[Signal] public delegate void DeathEventHandler();
 
 	public float Health = 100;
+	public float Armor
+	{
+		get => _armor;
+		set => _armor = value is >= 0 and <= 100 ? value : throw new ArgumentException($"{nameof(Armor)} must be at least 0 and at most 100.");
+	}
 
 	private float _armor = 50;
 	private Timer _invencibilityTimer;
+	private ProgressBar _healthBar;
 
 	public override void _Ready()
 	{
@@ -26,15 +25,16 @@ public partial class HealthComponent : Node2D
 		_invencibilityTimer = GetNodeOrNull<Timer>("InvencibilityTimer");
 		if (_invencibilityTimer != null)
 			_invencibilityTimer.WaitTime = InvencibilityDuration;
+
+		_healthBar = GetNodeOrNull<ProgressBar>("HealthBar");
 	}
 
 	public override void _Process(double delta)
 	{
 
-		ProgressBar bar = GetNodeOrNull<ProgressBar>("HealthBar");
-		if (bar == null)
+		if (_healthBar == null)
 			return;
-		bar.Value = Health;
+		_healthBar.Value = Health;
 	}
 
 	public void DealDamage(float damage)
@@ -43,7 +43,12 @@ public partial class HealthComponent : Node2D
 			return;
 
 		if (IsInvencibilityTimerPlaying())
-			return;					
+			return;
+
+		if (_healthBar == null)
+			SpawnDamageIndicator(damage, GetParent<Node2D>().GlobalPosition);
+
+		GetParent<Node2D>().GetNode<AnimationPlayer>("AnimationPlayer").Play("Tanks/Hurt");
 
 		damage /= GetArmorMultiplier();
 		Health = Mathf.Max(0, Health - damage);
@@ -73,8 +78,18 @@ public partial class HealthComponent : Node2D
 
 		if (!_invencibilityTimer.IsStopped())
 			return true;
-				
+
 		_invencibilityTimer.Start();
 		return false;
+	}
+
+	private void SpawnDamageIndicator(float content, Vector2 globalPos)
+	{
+
+		PackedScene damageIndicatorScene = GD.Load<PackedScene>("res://Scenes/Damage Indicator/damage_indicator.tscn");
+		DamageIndicator damageIndicator = damageIndicatorScene.Instantiate<DamageIndicator>();
+		damageIndicator.LabelValue = content;
+		GetTree().GetFirstNodeInGroup("Enemies").AddChild(damageIndicator);
+		damageIndicator.GlobalPosition = globalPos;
 	}
 }

@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3t68k57444bw"]
+[gd_scene load_steps=9 format=3 uid="uid://c3t68k57444bw"]
 
 [ext_resource type="PackedScene" uid="uid://bmgt4cjtlkvte" path="res://Scenes/Tanks/base_tank.tscn" id="1_au6jx"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_kpelb"]
-[ext_resource type="Texture2D" uid="uid://bo7pgpgnpvonl" path="res://icon.svg" id="2_dqkjn"]
 [ext_resource type="Script" path="res://Scripts/MobSpawner.cs" id="2_jqmv7"]
-[ext_resource type="PackedScene" uid="uid://ll2dnp17l01u" path="res://Scenes/Enemies/shooter.tscn" id="3_qnb2n"]
-[ext_resource type="PackedScene" uid="uid://doh6osdbc07k8" path="res://Scenes/Damage Indicator/damage_indicator.tscn" id="5_s3yms"]
+[ext_resource type="PackedScene" uid="uid://dchuuahgdpp3a" path="res://Scenes/Enemies/shooter.tscn" id="3_qnb2n"]
+[ext_resource type="PackedScene" uid="uid://dl4opwai24a0h" path="res://Scenes/Enemies/double_shooter.tscn" id="5_0vsi7"]
 
 [sub_resource type="Curve2D" id="Curve2D_ne8bk"]
 _data = {
@@ -60,42 +59,69 @@ show_percentage = false
 
 [node name="Enemies" type="Node2D" parent="." groups=["Enemies"]]
 
+[node name="Double Shooter" parent="Enemies" instance=ExtResource("5_0vsi7")]
+position = Vector2(-2173, 1325)
+
 [node name="Shooter" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(1068, 1049)
+position = Vector2(475, 940)
+
+[node name="Shooter2" parent="Enemies" instance=ExtResource("3_qnb2n")]
+
+[node name="Shooter3" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-1454, -286)
+
+[node name="Shooter4" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-1571, 364)
+
+[node name="Shooter5" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-879, 960)
+
+[node name="Shooter6" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-996, 1450)
+
+[node name="Shooter7" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-609, 1537)
+
+[node name="Shooter8" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-726, 1297)
+
+[node name="Shooter9" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(823, 1557)
+
+[node name="Shooter10" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(1382, 1200)
+
+[node name="Shooter11" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(1620, 275)
+
+[node name="Shooter12" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(1152, -576)
+
+[node name="Shooter13" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(1383, -369)
+
+[node name="Shooter14" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(1153, -349)
+
+[node name="Shooter15" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(1351, -659)
+
+[node name="Shooter16" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-220, -935)
+
+[node name="Shooter17" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-709, -795)
+
+[node name="Shooter18" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-1485, -935)
+
+[node name="Shooter19" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-1996, -708)
+
+[node name="Shooter20" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-2834, -702)
+
+[node name="Shooter21" parent="Enemies" instance=ExtResource("3_qnb2n")]
+position = Vector2(-2833, -199)
 
 [node name="Bullets" type="Node2D" parent="." groups=["Bullets"]]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-907, -499)
-texture = ExtResource("2_dqkjn")
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(1200, 574)
-texture = ExtResource("2_dqkjn")
-
-[node name="Sprite2D3" type="Sprite2D" parent="."]
-position = Vector2(1482, -197)
-texture = ExtResource("2_dqkjn")
-
-[node name="Sprite2D4" type="Sprite2D" parent="."]
-position = Vector2(1205, -635)
-texture = ExtResource("2_dqkjn")
-
-[node name="Sprite2D5" type="Sprite2D" parent="."]
-position = Vector2(1069, -15)
-texture = ExtResource("2_dqkjn")
-
-[node name="Sprite2D6" type="Sprite2D" parent="."]
-position = Vector2(-539, 776)
-texture = ExtResource("2_dqkjn")
-
-[node name="Sprite2D7" type="Sprite2D" parent="."]
-position = Vector2(-579, 1088)
-texture = ExtResource("2_dqkjn")
-
-[node name="Sprite2D8" type="Sprite2D" parent="."]
-position = Vector2(-418, 1033)
-texture = ExtResource("2_dqkjn")
-
-[node name="DamageIndicator" parent="." instance=ExtResource("5_s3yms")]
-position = Vector2(357, 64)

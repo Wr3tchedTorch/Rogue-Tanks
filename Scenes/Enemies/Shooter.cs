@@ -101,8 +101,7 @@ public partial class Shooter : Enemy
         if (_dashDelayTimer.IsStopped()) _dashDelayTimer.Start();
         Vector2 dir = (Target.GlobalPosition - GlobalPosition).Normalized();
 
-        var bulletForce = dir * 600;
-        return bulletForce;
+        return dir * BulletForce;
     }
 
     public void OnDashTimerTimeout()
@@ -121,7 +120,6 @@ public partial class Shooter : Enemy
     public void OnHealthComponentDeath()
     {
 
-        // Death Animation
-        QueueFree();
+        GetNode<AnimationPlayer>("AnimationPlayer").Play("Tanks/Death");
     }
 }

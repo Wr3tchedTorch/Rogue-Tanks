@@ -1,13 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://du2ubb1853sug"]
+[gd_scene load_steps=5 format=3 uid="uid://du2ubb1853sug"]
 
 [ext_resource type="Script" path="res://Enemy.cs" id="1_1ruyp"]
 
+[sub_resource type="Curve" id="Curve_3oir1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.460674), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4oqlr"]
+curve = SubResource("Curve_3oir1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rs4m8"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 194.49
+initial_velocity_max = 310.16
+gravity = Vector3(0, 0, 0)
+scale_min = 30.0
+scale_max = 60.0
+scale_curve = SubResource("CurveTexture_4oqlr")
+color = Color(0.315861, 0.604517, 0.856434, 1)
+
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_1ruyp")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-region_enabled = true
-region_rect = Rect2(38, 6792, 191, 135)
 
 [node name="Gun" type="Node2D" parent="."]
 
@@ -16,4 +30,12 @@ region_rect = Rect2(38, 6792, 191, 135)
 [node name="ShotDelay" type="Timer" parent="Gun"]
 one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 99
+position = Vector2(1, 0)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_rs4m8")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0

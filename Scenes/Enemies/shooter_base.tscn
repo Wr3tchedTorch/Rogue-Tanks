@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://ll2dnp17l01u"]
+
+[ext_resource type="PackedScene" uid="uid://du2ubb1853sug" path="res://Scenes/Enemies/enemy.tscn" id="1_b8q1r"]
+[ext_resource type="Script" path="res://Scenes/Enemies/Shooter.cs" id="2_15m2e"]
+[ext_resource type="PackedScene" uid="uid://46vmo5vw4vtr" path="res://Scenes/Bullets/enemy_bullet.tscn" id="3_py8i2"]
+[ext_resource type="Script" path="res://Scripts/HealthComponent.cs" id="6_an860"]
+
+[node name="Shooter Base" instance=ExtResource("1_b8q1r")]
+collision_layer = 2
+platform_floor_layers = 0
+script = ExtResource("2_15m2e")
+Damage = 10.0
+Speed = 100.0
+BulletScene = ExtResource("3_py8i2")
+FireRate = 15.0
+
+[node name="SpawnerGroup" type="Node2D" parent="Gun/ShotingSpawners" index="0"]
+position = Vector2(-31, 0)
+
+[node name="Marker2D" type="Marker2D" parent="Gun/ShotingSpawners/SpawnerGroup" index="0"]
+position = Vector2(134, 0)
+
+[node name="Marker2D2" type="Marker2D" parent="Gun/ShotingSpawners/SpawnerGroup" index="1"]
+position = Vector2(142, -20)
+
+[node name="Marker2D3" type="Marker2D" parent="Gun/ShotingSpawners/SpawnerGroup" index="2"]
+position = Vector2(142, 20)
+
+[node name="HealthComponent" type="Node2D" parent="." index="2"]
+script = ExtResource("6_an860")
+
+[node name="ShootingDelay" type="Timer" parent="." index="3"]
+one_shot = true
+
+[node name="DashDelay" type="Timer" parent="." index="4"]
+wait_time = 0.25
+one_shot = true
+
+[node name="HurtBox" type="Area2D" parent="." index="5"]
+collision_layer = 2
+collision_mask = 4
+
+[connection signal="Death" from="HealthComponent" to="." method="OnHealthComponentDeath"]
