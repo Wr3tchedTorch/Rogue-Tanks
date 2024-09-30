@@ -20,7 +20,9 @@ radius = 84.0952
 
 [node name="Shooter" instance=ExtResource("1_0t0u7")]
 collision_mask = 3
+SpawnProbability = 1.0
 Armor = 15.0
+Speed = 200.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="0"]
 libraries = {

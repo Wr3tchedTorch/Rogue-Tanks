@@ -21,9 +21,9 @@ bg_color = Color(0.408902, 0.661951, 0.91808, 1)
 anti_aliasing = false
 
 [node name="Sandbox" type="Node2D"]
+script = ExtResource("1_kpelb")
 
 [node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("1_kpelb")
 
 [node name="Base Tank" parent="." groups=["Player"] instance=ExtResource("1_au6jx")]
 position = Vector2(-404, 277)
@@ -32,13 +32,20 @@ position = Vector2(-404, 277)
 zoom = Vector2(0.3, 0.3)
 position_smoothing_enabled = true
 
-[node name="MobSpawner" type="Path2D" parent="Base Tank/Camera2D"]
+[node name="MobSpawner" type="Path2D" parent="Base Tank/Camera2D" groups=["MobSpawner"]]
+position = Vector2(-1.85522, 0.436157)
+scale = Vector2(1.14272, 1.17445)
 curve = SubResource("Curve2D_ne8bk")
 script = ExtResource("2_jqmv7")
+enemies = Array[PackedScene]([ExtResource("5_0vsi7"), ExtResource("3_qnb2n")])
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Base Tank/Camera2D/MobSpawner"]
-position = Vector2(-1998, -1158)
+position = Vector2(1182.53, -1200.82)
 rotation = -0.0134622
+progress = 3180.82
+
+[node name="Timer" type="Timer" parent="Base Tank/Camera2D/MobSpawner"]
+one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -58,70 +65,5 @@ value = 50.0
 show_percentage = false
 
 [node name="Enemies" type="Node2D" parent="." groups=["Enemies"]]
-
-[node name="Double Shooter" parent="Enemies" instance=ExtResource("5_0vsi7")]
-position = Vector2(-2173, 1325)
-
-[node name="Shooter" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(475, 940)
-
-[node name="Shooter2" parent="Enemies" instance=ExtResource("3_qnb2n")]
-
-[node name="Shooter3" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-1454, -286)
-
-[node name="Shooter4" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-1571, 364)
-
-[node name="Shooter5" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-879, 960)
-
-[node name="Shooter6" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-996, 1450)
-
-[node name="Shooter7" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-609, 1537)
-
-[node name="Shooter8" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-726, 1297)
-
-[node name="Shooter9" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(823, 1557)
-
-[node name="Shooter10" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(1382, 1200)
-
-[node name="Shooter11" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(1620, 275)
-
-[node name="Shooter12" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(1152, -576)
-
-[node name="Shooter13" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(1383, -369)
-
-[node name="Shooter14" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(1153, -349)
-
-[node name="Shooter15" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(1351, -659)
-
-[node name="Shooter16" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-220, -935)
-
-[node name="Shooter17" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-709, -795)
-
-[node name="Shooter18" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-1485, -935)
-
-[node name="Shooter19" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-1996, -708)
-
-[node name="Shooter20" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-2834, -702)
-
-[node name="Shooter21" parent="Enemies" instance=ExtResource("3_qnb2n")]
-position = Vector2(-2833, -199)
 
 [node name="Bullets" type="Node2D" parent="." groups=["Bullets"]]

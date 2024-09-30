@@ -6,7 +6,7 @@ public partial class Tank : CharacterBody2D
 {
 
 	[ExportGroup("Gameplay Attributes")]
-	[Export]
+	[Export(PropertyHint.Range, "0,100,")]
 	public float Armor
 	{
 		get => _armor;
@@ -15,7 +15,8 @@ public partial class Tank : CharacterBody2D
 	[Export] public float Damage { get; set; } = 10;
 	[Export] public float CriticalChance { get; set; } = 15;
 	[Export] public float BulletSpeed { get; set; } = 1200;
-	[Export] public float FireRate { get; set; } = 15;
+	[Export(PropertyHint.Range, "0,100,")]
+	public float FireRate { get; set; } = 15;
 	[Export] public PackedScene BulletScene;
 
 	[ExportGroup("Physics Attributes")]

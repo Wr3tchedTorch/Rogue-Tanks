@@ -20,6 +20,7 @@ radius = 127.0
 
 [node name="Double Shooter" instance=ExtResource("1_x2hfj")]
 collision_mask = 3
+SpawnProbability = 0.75
 Armor = 30.0
 Speed = 20.0
 MaxSpeed = 1600.0
