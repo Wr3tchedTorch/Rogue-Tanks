@@ -123,12 +123,12 @@ radius = 80.0562
 radius = 93.0484
 
 [node name="Base Tank" type="CharacterBody2D"]
-position = Vector2(-13, -4)
+position = Vector2(-20, -68)
 collision_mask = 0
 platform_floor_layers = 0
 script = ExtResource("1_gejch")
 CriticalChance = 50.0
-FireRate = 10.0
+FireRate = 30.0
 BulletScene = ExtResource("2_ch87e")
 Speed = 600
 

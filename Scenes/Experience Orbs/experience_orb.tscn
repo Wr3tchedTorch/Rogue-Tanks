@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://byrtvlluvuv23"]
+
+[ext_resource type="Script" path="res://Scenes/Experience Orbs/ExperienceOrb.cs" id="1_1vojt"]
+[ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_pgt42"]
+[ext_resource type="Texture2D" uid="uid://fax1g1bhcquj" path="res://Assets/s5dc6c8ipqix.png" id="3_oxer8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mv4sg"]
+shader = ExtResource("2_pgt42")
+shader_parameter/outline_color = Vector4(5, 5, 5, 5)
+shader_parameter/outline_thickness = 3.337
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kj2rm"]
+radius = 62.0322
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8tuov"]
+radius = 60.075
+
+[node name="Experience Orb" type="CharacterBody2D"]
+position = Vector2(0, -56)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_1vojt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_mv4sg")
+texture = ExtResource("3_oxer8")
+region_enabled = true
+region_rect = Rect2(5064, 4867, 182, 178)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 11)
+shape = SubResource("CircleShape2D_kj2rm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11)
+shape = SubResource("CircleShape2D_8tuov")
+debug_color = Color(0.870588, 0.254902, 0.360784, 0.101961)

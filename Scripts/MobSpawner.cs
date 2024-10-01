@@ -46,7 +46,6 @@ public partial class MobSpawner : Path2D
 	{
 
 		double spawnChance = _RNG.NextDouble();
-		GD.Print($"spawnChance: {spawnChance}");
 		foreach (PackedScene enemyScene in enemies)
 		{
 

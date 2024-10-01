@@ -23,6 +23,11 @@ public partial class Tank : CharacterBody2D
 	[Export] public float Mass { get; set; } = 1.2f;
 	[Export] public int Speed { get; set; } = 700;
 
+	[Signal] public delegate void LevelUpEventHandler();
+
+	public int CurrentLevel = 1;
+	public float Exp = 0.0f;
+
 	private Sprite2D _spr;
 	private Timer _shotDelayTimer;
 	private HealthComponent _healthComponent;
@@ -85,6 +90,23 @@ public partial class Tank : CharacterBody2D
 	{
 		_isHurtBoxColliding = true;
 		_hurtBoxCollidingBody = body;
+	}
+
+	public void AddExperience(float count)
+	{
+
+		if (count < 0)
+			return;
+
+		Exp += count;
+
+		if (Exp < 100)
+			return;
+
+		Exp = Math.Max(0, Exp - 100);
+		CurrentLevel++;
+		EmitSignal(SignalName.LevelUp);
+		GD.Print($"{nameof(CurrentLevel)}: {CurrentLevel}");
 	}
 
 	private void HandleMovement(double delta)

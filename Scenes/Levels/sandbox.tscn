@@ -1,16 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3t68k57444bw"]
+[gd_scene load_steps=10 format=3 uid="uid://c3t68k57444bw"]
 
 [ext_resource type="PackedScene" uid="uid://bmgt4cjtlkvte" path="res://Scenes/Tanks/base_tank.tscn" id="1_au6jx"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_kpelb"]
 [ext_resource type="Script" path="res://Scripts/MobSpawner.cs" id="2_jqmv7"]
 [ext_resource type="PackedScene" uid="uid://dchuuahgdpp3a" path="res://Scenes/Enemies/shooter.tscn" id="3_qnb2n"]
 [ext_resource type="PackedScene" uid="uid://dl4opwai24a0h" path="res://Scenes/Enemies/double_shooter.tscn" id="5_0vsi7"]
-
-[sub_resource type="Curve2D" id="Curve2D_ne8bk"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -1998, -1158, 0, 0, 0, 0, 2013, -1212, 0, 0, 0, 0, 2024, 1207, 0, 0, 0, 0, -1991, 1180, 0, 0, 0, 0, -1994, -1154)
-}
-point_count = 5
+[ext_resource type="PackedScene" uid="uid://byrtvlluvuv23" path="res://Scenes/Experience Orbs/experience_orb.tscn" id="6_nwafa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8kgsn"]
 bg_color = Color(0.0112714, 0.0620702, 0.0238382, 1)
@@ -20,32 +15,15 @@ anti_aliasing = false
 bg_color = Color(0.408902, 0.661951, 0.91808, 1)
 anti_aliasing = false
 
-[node name="Sandbox" type="Node2D"]
+[sub_resource type="Curve2D" id="Curve2D_ne8bk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1998, -1158, 0, 0, 0, 0, 2013, -1212, 0, 0, 0, 0, 2056.37, 65.1912, 0, 0, 0, 0, 2024, 1207, 0, 0, 0, 0, -1991, 1180, 0, 0, 0, 0, -1994, -1154)
+}
+point_count = 6
+
+[node name="Sandbox" type="Node2D" groups=["Game Manager"]]
+y_sort_enabled = true
 script = ExtResource("1_kpelb")
-
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="Base Tank" parent="." groups=["Player"] instance=ExtResource("1_au6jx")]
-position = Vector2(-404, 277)
-
-[node name="Camera2D" type="Camera2D" parent="Base Tank"]
-zoom = Vector2(0.3, 0.3)
-position_smoothing_enabled = true
-
-[node name="MobSpawner" type="Path2D" parent="Base Tank/Camera2D" groups=["MobSpawner"]]
-position = Vector2(-1.85522, 0.436157)
-scale = Vector2(1.14272, 1.17445)
-curve = SubResource("Curve2D_ne8bk")
-script = ExtResource("2_jqmv7")
-enemies = Array[PackedScene]([ExtResource("5_0vsi7"), ExtResource("3_qnb2n")])
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Base Tank/Camera2D/MobSpawner"]
-position = Vector2(1182.53, -1200.82)
-rotation = -0.0134622
-progress = 3180.82
-
-[node name="Timer" type="Timer" parent="Base Tank/Camera2D/MobSpawner"]
-one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -64,6 +42,54 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_pvgji")
 value = 50.0
 show_percentage = false
 
+[node name="PlayerLevel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.035
+offset_left = -36.5
+offset_top = 24.0
+offset_right = 36.5
+offset_bottom = 24.32
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 35
+text = "PLAYER LEVEL: 1"
+
+[node name="Base Tank" parent="." groups=["Player"] instance=ExtResource("1_au6jx")]
+position = Vector2(-404, 277)
+
+[node name="Camera2D" type="Camera2D" parent="Base Tank"]
+zoom = Vector2(0.2, 0.2)
+position_smoothing_enabled = true
+
+[node name="MobSpawner" type="Path2D" parent="Base Tank/Camera2D" groups=["MobSpawner"]]
+position = Vector2(-25.1962, -23.8676)
+scale = Vector2(1.6, 1.65358)
+curve = SubResource("Curve2D_ne8bk")
+script = ExtResource("2_jqmv7")
+enemies = Array[PackedScene]([ExtResource("5_0vsi7"), ExtResource("3_qnb2n")])
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Base Tank/Camera2D/MobSpawner"]
+position = Vector2(1182.53, -1200.82)
+rotation = -0.0134622
+progress = 3180.82
+
+[node name="Timer" type="Timer" parent="Base Tank/Camera2D/MobSpawner"]
+one_shot = true
+
 [node name="Enemies" type="Node2D" parent="." groups=["Enemies"]]
+y_sort_enabled = true
 
 [node name="Bullets" type="Node2D" parent="." groups=["Bullets"]]
+z_index = 999
+
+[node name="Experience" type="Node2D" parent="." groups=["Experience"]]
+y_sort_enabled = true
+
+[node name="Experience Orb" parent="Experience" instance=ExtResource("6_nwafa")]
+position = Vector2(622, 627)

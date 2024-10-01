@@ -39,7 +39,7 @@ public partial class HealthComponent : Node2D
 
 	public void DealDamage(float damage)
 	{
-		if (damage == 0)
+		if (damage == 0 || Health <= 0)
 			return;
 
 		if (IsInvencibilityTimerPlaying())
@@ -52,9 +52,6 @@ public partial class HealthComponent : Node2D
 
 		damage /= GetArmorMultiplier();
 		Health = Mathf.Max(0, Health - damage);
-
-		GD.Print($"{nameof(damage)}: {damage}");
-		GD.Print($"{nameof(Health)}: {Health}");
 
 		if (Health == 0)
 			EmitSignal(SignalName.Death);

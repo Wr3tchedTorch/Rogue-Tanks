@@ -116,10 +116,4 @@ public partial class Shooter : Enemy
             bullet.QueueFree();
         }
     }
-
-    public void OnHealthComponentDeath()
-    {
-
-        GetNode<AnimationPlayer>("AnimationPlayer").Play("Tanks/Death");
-    }
 }

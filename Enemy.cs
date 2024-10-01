@@ -5,6 +5,7 @@ public partial class Enemy : CharacterBody2D
 {
 
     [ExportGroup("Enemy Stats")]
+    [Export(PropertyHint.Range, "0,100")] public float ExperienceGain = 15;
     [Export(PropertyHint.Range, "0,1,")]
     public float SpawnProbability
     {
@@ -19,6 +20,8 @@ public partial class Enemy : CharacterBody2D
     }
     [Export] public float Damage = 0.5f;
     [Export(PropertyHint.Range, "0,100,")] public float FireRate = 100;
+
+    [ExportGroup("Physics Stats")]
     [Export] public float Speed = 130;
     [Export] public float MaxSpeed = 1200;
     [Export] public float BulletForce = 600;
@@ -31,6 +34,7 @@ public partial class Enemy : CharacterBody2D
     public CharacterBody2D Target;
 
     protected bool _freeze = false;
+
     private float _armor = 50;
     private float _spawnProbability = 0.5f;
 
@@ -52,5 +56,24 @@ public partial class Enemy : CharacterBody2D
     {
         Vector2 desiredVelocity = (Target.GlobalPosition - GlobalPosition).Normalized() * Speed;
         return desiredVelocity - Velocity;
+    }
+
+    public void OnHealthComponentDeath()
+    {
+
+        SpawnExpOrb();
+
+        GetNode<AnimationPlayer>("AnimationPlayer").Play("Tanks/Death");
+    }
+
+    private void SpawnExpOrb()
+    {
+        
+        PackedScene expScene = GD.Load<PackedScene>("res://Scenes/Experience Orbs/experience_orb.tscn");
+
+        ExperienceOrb exp = expScene.Instantiate<ExperienceOrb>();
+        GetTree().GetFirstNodeInGroup("Experience").CallDeferred("add_child", exp);
+        exp.ExperienceGain = ExperienceGain;
+        exp.GlobalPosition = GlobalPosition;
     }
 }
