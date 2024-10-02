@@ -5,10 +5,10 @@ public partial class HealthComponent : Node2D
 {
 
 	[Export] public float InvencibilityDuration = .5f;
+	[Export(PropertyHint.Range, "0,10000")] public float Health = 100;
 
 	[Signal] public delegate void DeathEventHandler();
 
-	public float Health = 100;
 	public float Armor
 	{
 		get => _armor;
@@ -58,7 +58,7 @@ public partial class HealthComponent : Node2D
 	}
 
 	public void Heal(int value)
-		=> Health = Mathf.Min(100, Health + value);
+		=> Health = Mathf.Min(10000, Health + value);
 
 	private float GetArmorMultiplier()
 	{
@@ -84,6 +84,7 @@ public partial class HealthComponent : Node2D
 	{
 
 		PackedScene damageIndicatorScene = GD.Load<PackedScene>("res://Scenes/Damage Indicator/damage_indicator.tscn");
+
 		DamageIndicator damageIndicator = damageIndicatorScene.Instantiate<DamageIndicator>();
 		damageIndicator.LabelValue = content;
 		GetTree().GetFirstNodeInGroup("Enemies").AddChild(damageIndicator);

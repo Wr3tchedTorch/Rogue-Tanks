@@ -27,6 +27,7 @@ public partial class Tank : CharacterBody2D
 
 	public int CurrentLevel = 1;
 	public float Exp = 0.0f;
+	public float ExpRequiredForLevelUp = 100;
 
 	private Sprite2D _spr;
 	private Timer _shotDelayTimer;
@@ -100,11 +101,12 @@ public partial class Tank : CharacterBody2D
 
 		Exp += count;
 
-		if (Exp < 100)
+		if (Exp < ExpRequiredForLevelUp)
 			return;
 
-		Exp = Math.Max(0, Exp - 100);
+		Exp = Math.Max(0, Exp - ExpRequiredForLevelUp);
 		CurrentLevel++;
+		ExpRequiredForLevelUp *= CurrentLevel;
 		EmitSignal(SignalName.LevelUp);
 		GD.Print($"{nameof(CurrentLevel)}: {CurrentLevel}");
 	}

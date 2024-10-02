@@ -43,6 +43,7 @@ public partial class GameManager : Node2D
 	{
 
 		_playerLevel.Text = $"PLAYER LEVEL: {_player.CurrentLevel}";
+		_experienceBar.MaxValue = _player.ExpRequiredForLevelUp;
 	}
 
 	private void SpawnEnemies()

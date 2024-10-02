@@ -15,9 +15,17 @@ run/main_scene="res://Scenes/Levels/sandbox.tscn"
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EmbedGameAutoload="*res://addons/fabimakesgames.embed_game/embed_game_autoload.gd"
+
 [dotnet]
 
 project/assembly_name="Rogue Tanks"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dev_time_tracker/plugin.cfg", "res://addons/fabimakesgames.embed_game/plugin.cfg")
 
 [input]
 
