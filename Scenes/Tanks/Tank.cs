@@ -106,7 +106,7 @@ public partial class Tank : CharacterBody2D
 
 		Exp = Math.Max(0, Exp - ExpRequiredForLevelUp);
 		CurrentLevel++;
-		ExpRequiredForLevelUp *= CurrentLevel;
+		ExpRequiredForLevelUp = 100 * CurrentLevel;
 		EmitSignal(SignalName.LevelUp);
 		GD.Print($"{nameof(CurrentLevel)}: {CurrentLevel}");
 	}

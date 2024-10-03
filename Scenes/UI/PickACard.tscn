@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmep0gca4vfds"]
+[gd_scene load_steps=4 format=3 uid="uid://dmep0gca4vfds"]
+
+[ext_resource type="Script" path="res://Scenes/Cards Picker/CardsPicker.cs" id="1_3spx1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmuyt"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njglu"]
-bg_color = Color(0.270588, 0.596078, 0.368627, 1)
+bg_color = Color(0.322374, 0.559492, 0.864644, 1)
 skew = Vector2(0.05, 0.05)
 
 [node name="Control" type="Control"]
@@ -16,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("1_3spx1")
 
 [node name="BlackOverlay" type="ColorRect" parent="."]
 layout_mode = 1
@@ -87,10 +90,11 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/First Card/First Card/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="FirstCardInfo" type="VBoxContainer" parent="HBoxContainer/First Card/First Card/MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Title" type="Label" parent="HBoxContainer/First Card/First Card/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="HBoxContainer/First Card/First Card/MarginContainer/VBoxContainer/MarginContainer/FirstCardInfo"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -98,7 +102,7 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "Fire Rate"
 
-[node name="Description" type="Label" parent="HBoxContainer/First Card/First Card/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Description" type="Label" parent="HBoxContainer/First Card/First Card/MarginContainer/VBoxContainer/MarginContainer/FirstCardInfo"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 8
@@ -141,10 +145,11 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Second Card/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="SecondCardInfo" type="VBoxContainer" parent="HBoxContainer/Second Card/MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Title" type="Label" parent="HBoxContainer/Second Card/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="HBoxContainer/Second Card/MarginContainer/VBoxContainer/MarginContainer/SecondCardInfo"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -152,7 +157,7 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "Speed Boost"
 
-[node name="Description" type="Label" parent="HBoxContainer/Second Card/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Description" type="Label" parent="HBoxContainer/Second Card/MarginContainer/VBoxContainer/MarginContainer/SecondCardInfo"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 8
@@ -194,10 +199,11 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Third Card/Third Card/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="ThirdCardInfo" type="VBoxContainer" parent="HBoxContainer/Third Card/Third Card/MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Title" type="Label" parent="HBoxContainer/Third Card/Third Card/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="HBoxContainer/Third Card/Third Card/MarginContainer/VBoxContainer/MarginContainer/ThirdCardInfo"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -205,7 +211,7 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "Critical Chance"
 
-[node name="Description" type="Label" parent="HBoxContainer/Third Card/Third Card/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Description" type="Label" parent="HBoxContainer/Third Card/Third Card/MarginContainer/VBoxContainer/MarginContainer/ThirdCardInfo"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 8
