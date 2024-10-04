@@ -224,3 +224,7 @@ autowrap_mode = 2
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "EU QUERO!"
+
+[connection signal="pressed" from="HBoxContainer/First Card/First Card/MarginContainer/VBoxContainer/Button" to="." method="OnFirstCardPicked"]
+[connection signal="pressed" from="HBoxContainer/Second Card/MarginContainer/VBoxContainer/Button" to="." method="OnSecondCardPicked"]
+[connection signal="pressed" from="HBoxContainer/Third Card/Third Card/MarginContainer/VBoxContainer/Button" to="." method="OnThirdCardPicked"]

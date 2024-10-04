@@ -4,11 +4,14 @@ using System;
 public partial class Card : Node
 {
 
-	public static Card[] cards = new Card[] 
+	public static readonly Card[] cardsList = new Card[] 
 	{
-		new AttributeBoostCard("nome", "desc", "CriticalChance", 15),
-		new AttributeBoostCard("nome", "desc", "Damage", 10),
-		new AttributeBoostCard("nome", "desc", "FireRate", 15),
+		new AttributeBoostCard("Chance de Ataque Critico", "Aumenta as chances do seu Tank de dar um tremendo dano extra em 15%!", "CriticalChance", 15),
+		new AttributeBoostCard("Dano", "Aumenta o dano total de seu poderoso tank em 10%. Uma poderosa arma contra brutamontes.", "Damage", 10),
+		new AttributeBoostCard("Velocidade de ataque", "Aumenta a velocidade de ataque do seu Tank em 10%. Muito útil contra enormes hordas de inimigos mais fracos", "FireRate", 10),
+		new AttributeBoostCard("Velocidade de movimento", "Aumenta sua velocidade de movimento em 15%. Ajuda a esquivar inimigos.", "Speed", 15),
+		new AttributeBoostCard("Cano duplo", "Esse é um atributo único! Da um cano duplo ao seu Tank, duplicando o seu dano total!", "Null", 15),
+		new AttributeBoostCard("Drones", "Esse é um atributo único! Te da acesso a drones que automaticamente atacam os inimigos próximos.", "FireRate", 15),
 	};
 
 	public string CardName { get; set; }

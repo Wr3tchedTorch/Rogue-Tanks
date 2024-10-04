@@ -44,6 +44,9 @@ public partial class GameManager : Node2D
 
 		_playerLevel.Text = $"PLAYER LEVEL: {_player.CurrentLevel}";
 		_experienceBar.MaxValue = _player.ExpRequiredForLevelUp;
+
+		GetNode<CardsPicker>("%CardsPicker").ShowRandomCards();
+		GetTree().Paused = true;
 	}
 
 	private void SpawnEnemies()

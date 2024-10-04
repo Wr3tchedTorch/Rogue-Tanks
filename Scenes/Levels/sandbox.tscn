@@ -23,11 +23,11 @@ _data = {
 point_count = 6
 
 [node name="Sandbox" type="Node2D" groups=["Game Manager"]]
+process_mode = 3
 y_sort_enabled = true
 script = ExtResource("1_kpelb")
 
 [node name="Player Stats" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ExperienceBar" type="ProgressBar" parent="Player Stats"]
 unique_name_in_owner = true
@@ -63,10 +63,14 @@ theme_override_font_sizes/font_size = 35
 text = "PLAYER LEVEL: 1"
 
 [node name="Pick a Card" type="CanvasLayer" parent="."]
+process_mode = 3
 
-[node name="Control" parent="Pick a Card" instance=ExtResource("2_l0786")]
+[node name="CardsPicker" parent="Pick a Card" instance=ExtResource("2_l0786")]
+unique_name_in_owner = true
+visible = false
 
 [node name="Base Tank" parent="." groups=["Player"] instance=ExtResource("1_au6jx")]
+process_mode = 1
 position = Vector2(-404, 277)
 
 [node name="Camera2D" type="Camera2D" parent="Base Tank"]
@@ -89,12 +93,15 @@ progress = 3180.82
 one_shot = true
 
 [node name="Enemies" type="Node2D" parent="." groups=["Enemies"]]
+process_mode = 1
 y_sort_enabled = true
 
 [node name="Bullets" type="Node2D" parent="." groups=["Bullets"]]
+process_mode = 1
 z_index = 999
 
 [node name="Experience" type="Node2D" parent="." groups=["Experience"]]
+process_mode = 1
 y_sort_enabled = true
 
 [node name="Experience Orb" parent="Experience" instance=ExtResource("6_nwafa")]

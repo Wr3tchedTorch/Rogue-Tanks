@@ -21,7 +21,7 @@ public partial class Tank : CharacterBody2D
 
 	[ExportGroup("Physics Attributes")]
 	[Export] public float Mass { get; set; } = 1.2f;
-	[Export] public int Speed { get; set; } = 700;
+	[Export] public float Speed { get; set; } = 700;
 
 	[Signal] public delegate void LevelUpEventHandler();
 
