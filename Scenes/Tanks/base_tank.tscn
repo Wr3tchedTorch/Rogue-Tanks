@@ -1,11 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://bmgt4cjtlkvte"]
+[gd_scene load_steps=18 format=3 uid="uid://bmgt4cjtlkvte"]
 
 [ext_resource type="Script" path="res://Scenes/Tanks/Tank.cs" id="1_gejch"]
 [ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="2_0tny1"]
 [ext_resource type="PackedScene" uid="uid://64njfd4dhi12" path="res://Scenes/Bullets/bullet.tscn" id="2_ch87e"]
 [ext_resource type="AnimationLibrary" uid="uid://d3xlpw0k58flq" path="res://Animations/Tanks.res" id="3_fx0ym"]
 [ext_resource type="Texture2D" uid="uid://fax1g1bhcquj" path="res://Assets/s5dc6c8ipqix.png" id="3_t8552"]
-[ext_resource type="Script" path="res://Scripts/HealthComponent.cs" id="4_h58d1"]
+[ext_resource type="Script" path="res://Scenes/Components/HealthComponent.cs" id="4_h58d1"]
+[ext_resource type="PackedScene" uid="uid://p28qf8cquvud" path="res://Scenes/Components/DroneComponent.tscn" id="7_lmr6f"]
 
 [sub_resource type="Animation" id="Animation_ownd2"]
 length = 0.001
@@ -130,7 +131,6 @@ script = ExtResource("1_gejch")
 CriticalChance = 50.0
 FireRate = 20.0
 BulletScene = ExtResource("2_ch87e")
-Speed = 600
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -149,12 +149,14 @@ one_shot = true
 explosiveness = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
 material = SubResource("ShaderMaterial_l5l1l")
 position = Vector2(46, -1)
 texture = ExtResource("3_t8552")
 region_enabled = true
 region_rect = Rect2(21, 4539, 225, 175)
+
+[node name="DroneComponent" parent="." instance=ExtResource("7_lmr6f")]
+position = Vector2(16, 0)
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("4_h58d1")

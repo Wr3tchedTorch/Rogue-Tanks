@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://ubegaabnbvn8"]
+
+[ext_resource type="Texture2D" uid="uid://fax1g1bhcquj" path="res://Assets/s5dc6c8ipqix.png" id="1_xblnb"]
+
+[node name="GunComponent" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.13492, 1)
+texture = ExtResource("1_xblnb")
+offset = Vector2(90, 0)
+region_enabled = true
+region_rect = Rect2(175, 4585, 63, 79)
+
+[node name="ShotingSpawners" type="Node2D" parent="."]
+
+[node name="SpawnerGroup" type="Node2D" parent="ShotingSpawners"]
+position = Vector2(1, 0)
+
+[node name="Marker2D" type="Marker2D" parent="ShotingSpawners/SpawnerGroup"]
+position = Vector2(134, 0)
+
+[node name="Marker2D2" type="Marker2D" parent="ShotingSpawners/SpawnerGroup"]
+position = Vector2(142, -20)
+
+[node name="Marker2D3" type="Marker2D" parent="ShotingSpawners/SpawnerGroup"]
+position = Vector2(142, 20)
+
+[node name="ShotDelay" type="Timer" parent="."]
+one_shot = true

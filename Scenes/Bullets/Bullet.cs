@@ -4,6 +4,11 @@ using System;
 public partial class Bullet : CharacterBody2D
 {
 
+	[ExportGroup("Physics Attributes")]
+	[Export(PropertyHint.Range, "0, 2000")] public float MaxSpeed = 1600;
+	[Export(PropertyHint.Range, "0, 100")] public float MaxSteering = 100;
+	[Export(PropertyHint.Range, "0, 2")] public float Mass = 1;
+
 	public float Speed
 	{
 		get => _speed;
@@ -22,10 +27,19 @@ public partial class Bullet : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		
+		Vector2 steering = GetForce();
+		steering = steering.LimitLength(MaxSteering);
+		steering /= Mass;
 
-		Velocity = Direction.Normalized() * Speed;
+		Velocity = (Velocity + steering).LimitLength(MaxSpeed);
 		MoveAndSlide();
-	}	
+	}
+
+	public virtual Vector2 GetForce()
+	{
+		return Direction.Normalized() * Speed;
+	}
 
 	public void InitializeAttributes(float damage, float speed, Vector2 direction)
 	{

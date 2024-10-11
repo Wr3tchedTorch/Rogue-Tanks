@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bmgt4cjtlkvte" path="res://Scenes/Tanks/base_tank.tscn" id="1_au6jx"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_kpelb"]
 [ext_resource type="Script" path="res://Scripts/MobSpawner.cs" id="2_jqmv7"]
-[ext_resource type="PackedScene" uid="uid://dmep0gca4vfds" path="res://Scenes/UI/PickACard.tscn" id="2_l0786"]
+[ext_resource type="PackedScene" uid="uid://dmep0gca4vfds" path="res://Scenes/Cards Picker/PickACard.tscn" id="2_l0786"]
 [ext_resource type="PackedScene" uid="uid://dchuuahgdpp3a" path="res://Scenes/Enemies/shooter.tscn" id="3_qnb2n"]
 [ext_resource type="PackedScene" uid="uid://dl4opwai24a0h" path="res://Scenes/Enemies/double_shooter.tscn" id="5_0vsi7"]
 [ext_resource type="PackedScene" uid="uid://byrtvlluvuv23" path="res://Scenes/Experience Orbs/experience_orb.tscn" id="6_nwafa"]
@@ -22,9 +22,8 @@ _data = {
 }
 point_count = 6
 
-[node name="Sandbox" type="Node2D" groups=["Game Manager"]]
+[node name="Sandbox" type="Node" groups=["Game Manager"]]
 process_mode = 3
-y_sort_enabled = true
 script = ExtResource("1_kpelb")
 
 [node name="Player Stats" type="CanvasLayer" parent="."]
@@ -74,12 +73,12 @@ process_mode = 1
 position = Vector2(-404, 277)
 
 [node name="Camera2D" type="Camera2D" parent="Base Tank"]
-zoom = Vector2(0.2, 0.2)
+zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 
 [node name="MobSpawner" type="Path2D" parent="Base Tank/Camera2D" groups=["MobSpawner"]]
-position = Vector2(-25.1962, -23.8676)
-scale = Vector2(1.6, 1.65358)
+position = Vector2(-9.70518, -25.2691)
+scale = Vector2(1.06922, 1.09301)
 curve = SubResource("Curve2D_ne8bk")
 script = ExtResource("2_jqmv7")
 enemies = Array[PackedScene]([ExtResource("5_0vsi7"), ExtResource("3_qnb2n")])
@@ -92,17 +91,15 @@ progress = 3180.82
 [node name="Timer" type="Timer" parent="Base Tank/Camera2D/MobSpawner"]
 one_shot = true
 
-[node name="Enemies" type="Node2D" parent="." groups=["Enemies"]]
+[node name="Enemies" type="Node" parent="." groups=["Enemies"]]
 process_mode = 1
-y_sort_enabled = true
 
-[node name="Bullets" type="Node2D" parent="." groups=["Bullets"]]
+[node name="Bullets" type="Node" parent="." groups=["Bullets"]]
 process_mode = 1
-z_index = 999
 
-[node name="Experience" type="Node2D" parent="." groups=["Experience"]]
+[node name="Experience" type="Node" parent="." groups=["Experience"]]
 process_mode = 1
-y_sort_enabled = true
 
 [node name="Experience Orb" parent="Experience" instance=ExtResource("6_nwafa")]
 position = Vector2(622, 627)
+ExperienceGain = 100.0

@@ -111,6 +111,12 @@ public partial class Tank : CharacterBody2D
 		GD.Print($"{nameof(CurrentLevel)}: {CurrentLevel}");
 	}
 
+	public void AddComponent(PackedScene componentScene)
+	{
+
+		GD.Print($"Adding the component: {componentScene} to the player tank.");
+	}
+
 	private void HandleMovement(double delta)
 	{
 

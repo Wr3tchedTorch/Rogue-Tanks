@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1l16h4o8fewk"]
+
+[ext_resource type="PackedScene" uid="uid://64njfd4dhi12" path="res://Scenes/Bullets/bullet.tscn" id="1_v14l5"]
+[ext_resource type="Script" path="res://Scenes/Bullets/Drone.cs" id="2_rpeqi"]
+
+[node name="Bullet" instance=ExtResource("1_v14l5")]
+script = ExtResource("2_rpeqi")
+MaxSpeed = 1100.0
+MaxSteering = 80.0
+Mass = 1.529
+
+[node name="Sprite2D" parent="." index="0"]
+region_rect = Rect2(3910, 6523, 76, 70)

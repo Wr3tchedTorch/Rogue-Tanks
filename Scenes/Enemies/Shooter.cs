@@ -107,10 +107,10 @@ public partial class Shooter : Enemy
     public void OnDashTimerTimeout()
         => _isDashing = false;
 
-    public void OnHurtBoxBodyEntered(Node2D area)
+    public void OnHurtBoxBodyEntered(Node2D body)
     {
 
-        if (area is Bullet bullet)
+        if (body is Bullet bullet)
         {
             GetNode<HealthComponent>("HealthComponent").DealDamage(bullet.Damage);
             bullet.QueueFree();

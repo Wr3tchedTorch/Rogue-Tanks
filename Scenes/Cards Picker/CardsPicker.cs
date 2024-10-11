@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public partial class CardsPicker : Control
 {
@@ -31,7 +30,7 @@ public partial class CardsPicker : Control
 	public void ShowRandomCards()
 	{
 
-		int _firstCardIndex = GetRandomNonRepeatedIndex();
+		int _firstCardIndex = GetRandomNonRepeatedIndex(-1, -1);
 		int _secondCardIndex = GetRandomNonRepeatedIndex(_firstCardIndex, -1);
 		int _thirdCardIndex = GetRandomNonRepeatedIndex(_firstCardIndex, _secondCardIndex);
 
@@ -58,6 +57,8 @@ public partial class CardsPicker : Control
 
 		if (card is AttributeBoostCard attCard)
 			UseAttributeCard(attCard);
+		if (card is ComponentCard componentCard)
+			UseComponentCard(componentCard);
 
 		Visible = false;
 		GetTree().Paused = false;
@@ -73,6 +74,12 @@ public partial class CardsPicker : Control
 
 		float newValue = card.BoostPercentage / 100 * oldValue + oldValue;
 		_player.GetType().GetProperty(card.AttributeName).SetValue(_player, newValue, null);
+	}
+
+	private void UseComponentCard(ComponentCard card)
+	{
+
+		_player.AddComponent(card.ComponentScene);
 	}
 
 	private void RenderCards()
@@ -93,9 +100,6 @@ public partial class CardsPicker : Control
 		cardGroup.GetNode<Label>("Title").Text = card.CardName;
 		cardGroup.GetNode<Label>("Description").Text = card.CardDescription;
 	}
-
-	private int GetRandomNonRepeatedIndex()
-		=> _RNG.Next(0, Card.cardsList.Length - 1);
 
 	private int GetRandomNonRepeatedIndex(int previousIndex, int anotherPreviousIndex)
 	{

@@ -12,7 +12,7 @@ public partial class MobSpawner : Path2D
 		set => _spawnDelay = value >= 0 ? value : throw new ArgumentException($"{nameof(SpawnDelay)} must be higher or equal to 0.");
 	}
 
-	private Node2D _enemiesParent;
+	private Node _enemiesParent;
 	private Timer _spawnDelayTimer;
 	private float _spawnDelay = 5f;
 	private readonly Random _RNG = new();
@@ -24,11 +24,11 @@ public partial class MobSpawner : Path2D
 	public override void _Ready()
 	{
 
+		_enemiesParent = GetTree().GetFirstNodeInGroup("Enemies");
 		_spawnDelayTimer = GetNode<Timer>("Timer");
-		_spawnDelayTimer.WaitTime = SpawnDelay;
-
 		_pathFollow = GetNode<PathFollow2D>("PathFollow2D");
-		_enemiesParent = GetTree().GetFirstNodeInGroup("Enemies") as Node2D;
+
+		_spawnDelayTimer.WaitTime = SpawnDelay;
 	}
 
 	public override void _Process(double delta)

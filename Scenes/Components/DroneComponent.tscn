@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://p28qf8cquvud"]
+
+[ext_resource type="Script" path="res://Scenes/Components/DroneComponent.cs" id="1_6kany"]
+[ext_resource type="PackedScene" uid="uid://b1l16h4o8fewk" path="res://Scenes/Bullets/drone.tscn" id="2_w20iw"]
+
+[node name="DroneComponent" type="Node2D"]
+script = ExtResource("1_6kany")
+DroneScene = ExtResource("2_w20iw")
+
+[node name="FireRateTimer" type="Timer" parent="."]
